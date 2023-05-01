@@ -2,38 +2,32 @@
 #include<stdio.h>
 #include<malloc.h>
 void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
-    int i = 0, j = 0, k = 0;
-    int* p = (int*)malloc(4 * (m+n));
-    while (i < m && j < n)
+    int i = m - 1;
+    int j = n - 1;
+    int dst = m + n - 1;
+    while (i >= 0 && j >= 0)
     {
-        if (nums1[i] <= nums2[j])
+        if (nums1[i] >= nums2[j])
         {
-            p[k] = nums1[i];
-            i++; k++;
+            nums1[dst] = nums1[i];
+            dst--;
+            i--;
+            //j--;
         }
         else
         {
-            p[k] = nums2[j];
-            j++; k++;
+            nums1[dst] = nums2[j];
+            dst--;
+            // i--;
+            j--;
         }
-    }while (i < m)
-    {
-        p[k++] = nums1[i++];
     }
-    while (j < n)
+    while (j >= 0)
     {
-        p[k++] = nums2[j++];
+        nums1[j] = nums2[j];
+        j--;
     }
-       
-    int t = 0;
-    int tt = 0;
-    while (tt < m + n)
-    {
-        nums1[t] = p[t];
-        tt++; t++;
-    }free(p);
-    p = NULL;
-   
+
 }
 int main()
 {
