@@ -1,73 +1,16 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include"game.h" 
-void menu() {
-	printf("###################\n");
-	printf("##1.play   0.exit    ####\n");
-	printf("###################\n");
-
-
-}
-void game()
+#include"SList.h"
+void test1()
 {
-	char board[ROW][COL] = { 0 };
-	Initboard(board, ROW, COL);
-	Displaybard(board, ROW, COL);
-	while (1) {
-		Playermove(board, ROW, COL);
-		Displaybard(board, ROW, COL);
-		if (isWin(board, ROW, COL) == '*')
-		{
-			printf("玩家胜利！\n"); break;
-		}
-		else if (isWin(board, ROW, COL) == '#') {
-			printf("电脑胜利！\n"); break;
-		}
-		else if (isWin(board, ROW, COL) == 'Q')
-		{
-			printf("平局！\n"); break;
-		}
-
-		
-		//isWin(board, ROW, COL
-		Computermove(board, ROW, COL);
-		Displaybard(board, ROW, COL);
-		if (isWin(board, ROW, COL) == '*')
-		{
-			printf("玩家胜利！\n"); break;
-		}
-		else if (isWin(board, ROW, COL) == '#') {
-			printf("电脑胜利！\n"); break;
-		}
-		else if (isWin(board, ROW, COL) == 'Q')
-		{
-			printf("平局！\n"); break;
-		}
-
-		
-	}
-}
-void test() {
-
-	int input = 0;
-	srand((unsigned int)time(NULL));
-	do {
-
-		menu();
-		printf("请选择->");
-		scanf("%d", &input);
-		switch (input)
-		{
-		case 1:game(); break;
-		case 0:printf("退出游戏！\n"); break;
-		default:printf("输入出错！\n"); break;
-		}
-	} while (input);
+	SL* slist;
+	SListPushBack(&slist, 1);
+	SListPushBack(&slist, 2);
+	SListPushBack(&slist, 3);
+	SListPushBack(&slist, 4);
+	SListPushBack(&slist, 5);
+	//SListPrint(slist);
 }
 int main()
 {
-
-	test();
+	test1();
 	return 0;
 }
-
-
