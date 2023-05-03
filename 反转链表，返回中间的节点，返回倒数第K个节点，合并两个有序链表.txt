@@ -1,0 +1,153 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+/*struct ListNode* reverseList(struct ListNode* head){
+    struct ListNode*cur,*newhead;
+    newhead=NULL;//16min
+    while(head)
+    {
+        cur=head;
+        head=head->next;
+        cur->next=newhead;
+        newhead=cur;
+    }
+    return newhead;
+    
+
+}*/
+struct ListNode* reverseList(struct ListNode* head){
+    struct ListNode*cur=NULL,*prev=NULL;//8min
+    
+    while(head)
+    {
+        cur=head;
+        head=head->next;
+        cur->next=prev;
+        prev=cur;
+    }return cur;
+
+}
+
+
+
+
+
+//链表的中间节点
+struct ListNode* middleNode(struct ListNode* head){
+    struct ListNode*fast,*slow;
+    fast=slow=head;
+    while(fast&&fast->next)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+      
+    }//9min
+    return slow;
+
+}
+
+
+
+//返回倒数第k个节点
+struct ListNode* getKthFromEnd(struct ListNode* head, int k){
+    int count=0;
+    int num=0;
+    struct ListNode*cur=head;
+    while(cur)//12.32min
+    {
+        count++;
+        cur=cur->next;
+    }
+    num=count-k;
+    if(k==0||k>count)
+    {
+        return NULL;
+    }
+    else
+    {
+        while(num)
+        {
+            head=head->next;
+            num--;
+        }
+    }
+    return head;
+
+}*/
+struct ListNode* getKthFromEnd(struct ListNode* head, int k){
+    struct ListNode*fast,*slow;
+    fast=slow=head;
+    while(k)
+    {
+        if(fast==NULL)
+        {return NULL;
+        }
+        fast=fast->next;
+        k--;
+    }
+    while(fast)
+    {
+        slow=slow->next;
+        fast=fast->next;
+    }
+    return slow;
+}
+
+
+
+
+
+//合并两个有序链表
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
+    struct ListNode*newhead,*newNode;//30Min
+    newhead=newNode=NULL;
+    if(list2==NULL)
+    return list1;
+    if(list1==NULL)
+    return list2;
+    if(list1->val<=list2->val)
+    {
+        newNode=newhead=list1;
+        list1=list1->next;
+    }
+    else
+    {
+        newNode=newhead=list2;
+        list2=list2->next;
+        
+    }
+    while(list1&&list2)
+    {
+        if(list1->val<=list2->val)
+    {
+        newNode->next=list1;
+        newNode=list1;
+        list1=list1->next;
+    }
+    else
+    {
+        newNode->next=list2;
+        newNode=list2;
+        list2=list2->next;
+    }
+    }
+    
+    if(list1)
+    {
+        newNode->next=list1;
+    }
+    if(list2)
+    {
+        newNode->next=list2;
+
+    }
+    return newhead;
+
+     
+}
