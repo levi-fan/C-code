@@ -1,0 +1,141 @@
+/*bool isUnivalTree(struct TreeNode* root){//分成三个部分：先看根节点是否和左右孩子相同，不同
+//返回false，这样能拿到结果，就不要判断是否相同，那样拿不到结果，然后如果都相同，就去看左右孩子是否和
+//他们的孩子节点相同，传递性，
+    if(root==NULL)
+    {
+        return true;
+    }
+    if(root->left&&root->left->val!=root->val)
+    {
+        return false;
+    }
+    if(root->right&&root->right->val!=root->val)
+    {
+        return false;
+    }
+    return isUnivalTree(root->left)&&isUnivalTree(root->right);
+
+二叉树的前序遍历
+}*/
+
+bool prevOrder(struct TreeNode*root,int data)
+{
+    if(root==NULL)
+    {
+        return true;
+    }
+    if(root->val!=data)
+    {
+        return false;
+    }
+    return prevOrder(root->left,data)&&prevOrder(root->right,data);
+
+
+}
+bool isUnivalTree(struct TreeNode* root)//采用遍历二叉树的思想去看待，每一个结点的值都和根节点的值
+//进行对比，如果不同就返回false
+{
+    return prevOrder(root,root->val);
+}
+
+
+
+
+
+
+
+//相同的树
+bool isSameTree(struct TreeNode* p, struct TreeNode* q){
+    if(p==NULL&&q==NULL)
+    {
+        return true;
+    }
+    if(p && q &&p->val!=q->val)
+    {
+        return false;
+    }
+    if(p==NULL&&q!=NULL)
+    {
+        return false;
+    }
+      if(q==NULL&&p!=NULL)
+    {
+        return false;
+    }
+    return isSameTree(p->left,q->left)&&isSameTree(p->right,q->right);
+
+}
+
+
+
+
+bool prevOrder(struct TreeNode*leftret,struct TreeNode*rightret)
+{
+    if(leftret==NULL&&rightret==NULL)
+    {
+        return true;
+    }
+    if(leftret==NULL&&rightret!=NULL)
+    {
+        return false;
+    }
+    if(rightret==NULL&&leftret!=NULL)
+    {
+        return false;
+    }
+    if(leftret->val!=rightret->val)
+    {
+        return false;
+    }
+    return prevOrder(leftret->left,rightret->right)
+    &&prevOrder(leftret->right,rightret->left);
+}
+bool isSymmetric(struct TreeNode* root){
+    
+    return  prevOrder(root,root);
+}
+
+HY11，牛客，遍历二叉树
+#include <stdio.h>
+#include<stdlib.h>
+typedef struct TreeNode
+{
+    char data;
+    struct TreeNode*left;
+    struct TreeNode*right;
+}Node;
+Node* prevOrder(char*str,int*pi)
+{
+   if(str[*pi]=='#')
+   {
+    (*pi)++;
+    return NULL;
+   }
+   Node*root=(Node*)malloc(sizeof(Node));
+   root->data=str[*pi];
+   (*pi)++;
+   root->left= prevOrder(str,pi);
+   root->right= prevOrder(str,pi);
+   return root;
+
+}
+ void   _pastOrder(Node*root)
+ {
+    if(root==NULL)
+    {
+        return;
+    }
+    _pastOrder(root->left);
+      printf("%c ",root->data);
+    _pastOrder(root->right);
+  
+
+ } 
+int main() {
+    char str[101];
+    int i=0;
+    scanf("%s",str);
+    Node*root=prevOrder(str,&i);
+    _pastOrder(root);
+    return 0;
+}
